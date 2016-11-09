@@ -28,23 +28,25 @@ public class ManejoDeArchivos {
                 crearArchivo(datos, nombre);
                 break;
             case 2:
-                mostrarRegistro(datos);
+                nombre = pedirNombreDelArchivo();
+                leerArchivo(nombre);
                 break;
-            default:
+            case 3:
                 mensajeSalida();
-            
-        }
+            default:
+                System.out.print("Gracias por usar el programa.");
+                System.exit(0);
+        } 
     }
+     
     public static int menu(){
         Scanner entrada= new Scanner (System.in);
         int opcion;
-        do{
         System.out.println("Bienvenido al registro de alumnos.\nPor favor introduzca una opción del menú: \n");
         System.out.println("\t1. Registrar Alumnos.\n\t2. Mostrar Registro.\n\t3. Salir.\n");
-        opcion = entrada.nextInt();}
-        while (opcion<0 || opcion>3);
+        opcion = entrada.nextInt();       
         return opcion;
-    }
+        }
     public static String[][] registrarAlumno(){
         int a;
         String archivo;
@@ -63,7 +65,7 @@ public class ManejoDeArchivos {
     public static String pedirNombreDelArchivo(){
         String nombre;
         Scanner entrada= new Scanner (System.in);
-        System.out.print("Introduzca el nombre para el archivo a guardar:  ");
+        System.out.print("Introduzca el nombre del archivo:  ");
         nombre = entrada.nextLine();
         return nombre;
     }
@@ -86,7 +88,7 @@ public class ManejoDeArchivos {
                     datos[i][j]=nombre;
              }
                     if(j==1){
-                    System.out.print("Porfavor, ingresar la matricula del alumno número     [ "+(orden-1)+" ] de lista:");
+                    System.out.print("Porfavor, ingresar la matricula del alumno número     [ "+(orden-1)+" ] de lista: ");
                     matricula = entrada.nextLine();
                     for(int k=0;k<i;k++){
                         while(datos[k][1].contains(matricula)){
@@ -100,10 +102,6 @@ public class ManejoDeArchivos {
             }
             return datos;
         }
-    public static void mostrarRegistro(String[][] datos){
-        
-        
-    }
     public static void mensajeSalida(){
         System.out.println("Gracias por usar este programa.");
         System.exit(0);
@@ -112,7 +110,7 @@ public class ManejoDeArchivos {
         //Paso 1 Instanciamos un objeto de la clase File 
         //al instanciar escribimos como parámetro 
         //el nombre del archivo para manipularlo
-        File archivo = new File(nombre);
+        File archivo = new File(nombre + ".txt");
         //Paso 2. Si no existe el archivo
         if (!archivo.exists())
         {   try {  //try nos sirve para manejar excepciones. En caso de que algo
@@ -143,5 +141,28 @@ public class ManejoDeArchivos {
         } 
         System.out.println("El archivo se creó con éxito.");
 } 
+    public static void leerArchivo(String nombre){
+        // Paso 1. Instanciamos un objeto de la clase File y una variable cadena
+        File archivo = new File (nombre + ".txt");
+        String cadena="";
+        try {//Par el manejo de excepciones
+            //Instanciamos un objeto de la clase FileReader y otro de la clase
+            //BufferedReader, los cuales nos serviran para dar lectura al archivo
+            //deben estar dentro de try.
+           FileReader lectura = new FileReader(archivo);
+           BufferedReader bufferL = new BufferedReader(lectura);
+           //Paso 2. Recorremos el archivo.
+           while (cadena!=null){ //Mientras la cadena no sea nula
+               cadena = bufferL.readLine(); //Leemos líena por línea el archivo.
+               if(cadena!=null) { //Si no encontramos null dentro del archivo
+                   System.out.println(cadena); //Lo muestra en pantalla.
+               }
+           }
+           //Paso 3. Cerramos las instancias de BufferedReader y FileReader.
+           bufferL.close();
+           lectura.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }  
+    }
 }
-
