@@ -14,39 +14,41 @@ public class ManejoDeArchivos { //Ultimo corregido
 
     /**
      * @param args the command line arguments
-     */      
+     */
     public static void main(String[] args) {
- 
-        int opcion;
-        String[][] datos;
-        String nombre;
-        opcion = menu();
-        switch (opcion){
-            case 1:
-                datos = registrarAlumno();
-                nombre = pedirNombreDelArchivo();
-                crearArchivo(datos, nombre);
+       menu();
+    }
+    public static void menu(){
+        int opcion; //Esta variable sirve para escoger que categoria usar del menu.
+        boolean reg=true; //Sirve para volver al menú.
+        String[][] datos; //Es el arreglo donde están las matrículas y nombres.
+        String nombre; //Es la variable del nombre del archivo.
+        Scanner entrada= new Scanner (System.in); //Variable del scanner
+        while (reg==true){
+            System.out.println("\n\nBienvenido al registro de alumnos.\nPor favor introduzca una opción del menú: \n");
+            System.out.println("\t1. Registrar Alumnos.\n\t2. Mostrar Registro.\n\t3. Salir.\n"); //menú del sistema.
+            opcion = entrada.nextInt();   //el usuario da un valor a la variable opcion para continuar con el menú.    
+            switch (opcion){ //Tomamos el valor de la opcion dado anteriormente y depende de ese resultado el ciclo acatará una orden del menú.
+            case 1: //Si el valor es uno proseguirá a registrar los nombres y matrículas de un grupo de alumnos.
+                datos = registrarAlumno(); //llamamos al método de registrarAlumno().
+                nombre = pedirNombreDelArchivo(); //llamamos el método de pedirNombreDelArchivo().
+                crearArchivo(datos, nombre); //Aquí creamos un arhcivo con el nombre y matrículas asignadas.
+                regresar();
                 break;
+         
             case 2:
-                nombre = pedirNombreDelArchivo();
-                leerArchivo(nombre);
+                nombre = pedirNombreDelArchivo(); //Llamamos el metodo de pedirNombreDelArchivo
+                leerArchivo(nombre); //Se recupera la informaciónd de los datos para mostrarlos.
                 break;
             case 3:
-                mensajeSalida();
+                mensajeSalida(); //Se cierra el programa
             default:
                 System.out.print("Gracias por usar el programa.");
-                System.exit(0);
+                System.exit(0);//Se despide al usuario cerrando la aplicación.
         } 
+        
     }
-     
-    public static int menu(){
-        Scanner entrada= new Scanner (System.in);
-        int opcion;
-        System.out.println("Bienvenido al registro de alumnos.\nPor favor introduzca una opción del menú: \n");
-        System.out.println("\t1. Registrar Alumnos.\n\t2. Mostrar Registro.\n\t3. Salir.\n");
-        opcion = entrada.nextInt();       
-        return opcion;
-        }
+    }
     public static String[][] registrarAlumno(){
         int a;
         String archivo;
@@ -70,33 +72,33 @@ public class ManejoDeArchivos { //Ultimo corregido
         return nombre;
     }
     public static String[][] llenarDatos(String[][] datos){
-        int orden=1;
-        String nombre, matricula;
-        Scanner entrada = new Scanner(System.in);
-        for(int i=0;i<datos.length;i++){
-            for(int j=0;j<datos[0].length;j++){
-                if(j==0){
+        int orden=1; //variable de entrada entero con valor de uno.
+        String nombre, matricula; //Se declaran dos variables para el nombre y matrícula del alumno
+        Scanner entrada = new Scanner(System.in); //Se declara entrada como nuevo scanner.
+        for(int i=0;i<datos.length;i++){ //Se declara una variable i en un ciclo for, esté servirá para asignar una valor a las matrículas.
+                for(int j=0;j<datos[0].length;j++){ //Se decalara una variable j en un ciclo for, esté servirá para asignar un valor al valor de nombre.
+                if(j==0){ 
                 System.out.print("Por favor, ingresar el nombre del alumno número       [ "+(orden)+" ] de lista: ");
-                nombre = entrada.nextLine();
+                nombre = entrada.nextLine(); //Recibimos un valor del scanner y se lo asignamos al número.
                 for(int k=0;k<i;k++){
-                    while(datos[k][0].contains(nombre)){
+                    while(datos[k][0].contains(nombre)){ //Si el nombre ya se ingreso te pedirá que repitas el proceso.
                         System.out.print("Usted ya ingresó este nombre, intente de nuevo:\n Ingrese uno diferente: ");
-                        nombre = entrada.nextLine();
+                        nombre = entrada.nextLine(); //Se declara un nuevo nombre.
                     }
                 }
-                    orden ++;
-                    datos[i][j]=nombre;
+                    orden ++; //Esta variable solo agrega un cierto nivel de orden para que el usuario pueda saber en que posición está en su lista.
+                    datos[i][j]=nombre; //Por el momento se guardan las variables nombre.
              }
-                    if(j==1){
+                    if(j==1){ //El ciclo se repetirá y ahora asignará los valores j pero ahora vale 1, por eso no se repité el proceso pasado debido a que necesita valer 0 para que se vuelva a ocurrir esa etapa.
                     System.out.print("Porfavor, ingresar la matricula del alumno número     [ "+(orden-1)+" ] de lista: ");
-                    matricula = entrada.nextLine();
-                    for(int k=0;k<i;k++){
+                    matricula = entrada.nextLine(); //Se crea una nueva matricula.
+                    for(int k=0;k<i;k++){ //Se crea un ciclo para volver a asignar una nueva matrícula en caso que se haya repetido.
                         while(datos[k][1].contains(matricula)){
                         System.out.print("Usted ya ingreso esta matrícula, ingrese una diferente: ");
-                        matricula = entrada.nextLine();
+                        matricula = entrada.nextLine(); //Se crea una nueva matrícula.
                     }
                     }
-                    datos[i][j]=matricula;
+                    datos[i][j]=matricula; //Ahora se guardan las variables matricula
                     }
                 }
             }
@@ -145,6 +147,9 @@ public class ManejoDeArchivos { //Ultimo corregido
         // Paso 1. Instanciamos un objeto de la clase File y una variable cadena
         File archivo = new File (nombre + ".txt");
         String cadena="";
+        if (!archivo.exists()){
+            System.err.print("El archivo " + nombre  +" no existe.");
+        }
         try {//Par el manejo de excepciones
             //Instanciamos un objeto de la clase FileReader y otro de la clase
             //BufferedReader, los cuales nos serviran para dar lectura al archivo
@@ -164,5 +169,21 @@ public class ManejoDeArchivos { //Ultimo corregido
         } catch (Exception e) {
             e.printStackTrace();
         }  
+        
+    }
+    public static boolean regresar(){ //Este método sirve para hacer que cuando termine una acción del menú regrese a la interfaz del programa.
+        boolean regresar=false; //Se declara una variable "x" falsa.
+        Scanner entrada= new Scanner (System.in); //Declaramos entrada como scanner.
+        int op; //Declaramos una variable de tipo entero.
+        System.out.println("¿Desea regresar al menú?\n1.\tSI\n2.\tNO (Cerrar Programa)"); //Si el scanner lee 1 regresa al menú, si lee otro número se despide agradeciendo al usuario.
+        op=entrada.nextInt();
+        while (regresar==false){
+        if(op==1){ 
+                    regresar=true; //La condición true hace que regrese a la interfaz.
+                    }else {
+                        System.out.println("Gracias por usar el programa.");
+                        System.exit(0); 
+                    }
+        }return regresar; //regresa el valor de "x" para decidir si continúa el programa o no.
     }
 }
