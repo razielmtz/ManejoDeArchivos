@@ -4,8 +4,13 @@
  * and open the template in the editor.
  */
 package manejodearchivos;
+import java.io.File;
+import java.io.FileReader;
+import java.io.PrintWriter;
+import java.io.BufferedReader;
+//Libraría para el manejo de excepciones.
+import java.io.IOException;
 import java.util.*;
-import java.io.*;
 /**
  *
  * @author Raziel 2
@@ -33,7 +38,7 @@ public class ManejoDeArchivos { //Ultimo corregido
                 datos = registrarAlumno(); //llamamos al método de registrarAlumno().
                 nombre = pedirNombreDelArchivo(); //llamamos el método de pedirNombreDelArchivo().
                 crearArchivo(datos, nombre); //Aquí creamos un arhcivo con el nombre y matrículas asignadas.
-                regresar();
+                regresar(); //Se regresa al menú nuevamente
                 break;
          
             case 2:
@@ -135,8 +140,13 @@ public class ManejoDeArchivos { //Ultimo corregido
             //archivo de texto
             PrintWriter escribir = new PrintWriter (archivo,"utf-8");
             //Escribimos el contenido del archivo.
-            escribir.println(datos);
-            //Cerramos el archivo.
+            escribir.println(datos); //Contenido del Archivo (Variable de Alumnos con su matrícula)
+            for(int i=0;i<datos.length;i++){ //Alumnos a partir de la primera posición
+                for(int j=0;j<datos[0].length;j++){ // Matrícula a partir de la pimera posición
+                escribir.print(datos[i][j]); //Imprimimos en forma de matriz donde i son los alumnos y j la matricula 
+                }
+                escribir.println();
+            }
             escribir.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -148,7 +158,8 @@ public class ManejoDeArchivos { //Ultimo corregido
         File archivo = new File (nombre + ".txt"); //archivo es igual a el nombre que le dimos mas .txt
         String cadena=""; 
         if (!archivo.exists()){ //Si el archivo no existe
-            System.err.print("El archivo " + nombre  +" no existe.");  //Mostrar error diciendo que archivo no existe
+            System.err.print("El archivo " + nombre  +" no existe. Por favor elija una de las dos opciones.");  //Mostrar error diciendo que archivo no existe
+            regresar(); //Regresar al menu principal
         }
         try {//Par el manejo de excepciones
             //Instanciamos un objeto de la clase FileReader y otro de la clase
@@ -169,7 +180,7 @@ public class ManejoDeArchivos { //Ultimo corregido
         } catch (Exception e) {
             e.printStackTrace();
         }  
-        regresar(); //Regresar al menu principal
+       
         
     }
     public static boolean regresar(){ //Este método sirve para hacer que cuando termine una acción del menú regrese a la interfaz del programa.
