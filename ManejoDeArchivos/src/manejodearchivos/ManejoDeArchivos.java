@@ -57,19 +57,19 @@ public class ManejoDeArchivos { //Ultimo corregido
         arr = llenarDatos(arr);
         return arr;
     }
-    public static int pedirNumAlumnos(){
-        int num;
-        Scanner entrada=new Scanner (System.in);
-        System.out.print("Por favor, introduzca la cantidad de alumnos que hay: ");
-        num = entrada.nextInt();
-        return num;
+    public static int pedirNumAlumnos(){ //En éste método se pide la cantidad de Alumnos a registrarse
+        int num; //Variable de cantidad de Alumnos
+        Scanner entrada=new Scanner (System.in); 
+        System.out.print("Por favor, introduzca la cantidad de alumnos que hay: "); // Se muestra mensaje
+        num = entrada.nextInt(); //Se ingresa por teclado la variable
+        return num; //Se regresa la variable de cantidad de Alumnos
     }
-    public static String pedirNombreDelArchivo(){
-        String nombre;
+    public static String pedirNombreDelArchivo(){ //En éste método se pide el nombre del Archivo
+        String nombre; //Variable del nombre del Archivo de tipo String
         Scanner entrada= new Scanner (System.in);
-        System.out.print("Introduzca el nombre del archivo:  ");
-        nombre = entrada.nextLine();
-        return nombre;
+        System.out.print("Introduzca el nombre del archivo:  "); //Se muestra mensaje 
+        nombre = entrada.nextLine(); //Se pide la variable por teclado
+        return nombre; //Se regresa la variable que contiene el nombre del Archivo
     }
     public static String[][] llenarDatos(String[][] datos){
         int orden=1; //variable de entrada entero con valor de uno.
