@@ -104,9 +104,9 @@ public class ManejoDeArchivos { //Ultimo corregido
             }
             return datos; //Se regresa la lista de Alumnos con sus matriculas
         }
-    public static void mensajeSalida(){
-        System.out.println("Gracias por usar este programa.");
-        System.exit(0);
+    public static void mensajeSalida(){ //Mensaje de salida de la opcion 3 del menú
+        System.out.println("Gracias por usar este programa."); //Mensaje de despedida
+        System.exit(0); //Salimos del programa
     }
     public static void crearArchivo(String [][]datos, String nombre){
         //Paso 1 Instanciamos un objeto de la clase File 
