@@ -143,7 +143,7 @@ public class ManejoDeArchivos { //Ultimo corregido
             escribir.println(datos); //Contenido del Archivo (Variable de Alumnos con su matrícula)
             for(int i=0;i<datos.length;i++){ //Alumnos a partir de la primera posición
                 for(int j=0;j<datos[0].length;j++){ // Matrícula a partir de la pimera posición
-                escribir.print(datos[i][j] + " "); //Imprimimos en forma de matriz donde i son los alumnos y j la matricula 
+                escribir.print(datos[i][j] + "\t"); //Imprimimos en forma de matriz donde i son los alumnos y j la matricula 
                 }
                 escribir.println();
             }
