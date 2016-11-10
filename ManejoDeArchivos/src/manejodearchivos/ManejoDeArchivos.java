@@ -148,7 +148,7 @@ public class ManejoDeArchivos { //Ultimo corregido
         File archivo = new File (nombre + ".txt");
         String cadena="";
         if (!archivo.exists()){
-            System.err.print("El archivo " + nombre  +" no existe.");
+            System.err.print("El archivo " + nombre  +" no existe.");  
         }
         try {//Par el manejo de excepciones
             //Instanciamos un objeto de la clase FileReader y otro de la clase
@@ -169,6 +169,7 @@ public class ManejoDeArchivos { //Ultimo corregido
         } catch (Exception e) {
             e.printStackTrace();
         }  
+        regresar();
         
     }
     public static boolean regresar(){ //Este método sirve para hacer que cuando termine una acción del menú regrese a la interfaz del programa.
