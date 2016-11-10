@@ -102,7 +102,7 @@ public class ManejoDeArchivos { //Ultimo corregido
                     }
                 }
             }
-            return datos;
+            return datos; //Se regresa la lista de Alumnos con sus matriculas
         }
     public static void mensajeSalida(){
         System.out.println("Gracias por usar este programa.");
@@ -145,10 +145,10 @@ public class ManejoDeArchivos { //Ultimo corregido
 } 
     public static void leerArchivo(String nombre){
         // Paso 1. Instanciamos un objeto de la clase File y una variable cadena
-        File archivo = new File (nombre + ".txt");
-        String cadena="";
-        if (!archivo.exists()){
-            System.err.print("El archivo " + nombre  +" no existe.");  
+        File archivo = new File (nombre + ".txt"); //archivo es igual a el nombre que le dimos mas .txt
+        String cadena=""; 
+        if (!archivo.exists()){ //Si el archivo no existe
+            System.err.print("El archivo " + nombre  +" no existe.");  //Mostrar error diciendo que archivo no existe
         }
         try {//Par el manejo de excepciones
             //Instanciamos un objeto de la clase FileReader y otro de la clase
@@ -169,7 +169,7 @@ public class ManejoDeArchivos { //Ultimo corregido
         } catch (Exception e) {
             e.printStackTrace();
         }  
-        regresar();
+        regresar(); //Regresar al menu principal
         
     }
     public static boolean regresar(){ //Este método sirve para hacer que cuando termine una acción del menú regrese a la interfaz del programa.
